@@ -1,0 +1,35 @@
+/* .comments {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comments li {
+  text-align: left;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #ccc;
+}
+
+.comments p {
+  margin: 0;
+}
+
+.comments li div {
+  text-align: right;
+  font-style: italic;
+}
+
+.comments address {
+  display: inline;
+} */
+
+.grid {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(25%, auto));
+  width: var(--max-width);
+  max-width: 100%;
+}
