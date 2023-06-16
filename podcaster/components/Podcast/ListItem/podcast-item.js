@@ -3,15 +3,29 @@ import Image from 'next/image';
 
 function EventItem(props) {
   const { podcast } = props;
-  console.log(podcast['im:image'][1].label);
+  const name = podcast['im:name'].label;
+  const author = podcast['im:artist'].label;
+  const imageSrc = podcast['im:image'][1]?.label;
+
   return (
     <li className={classes.card}>
-      {/* <div style={{ borderRadius: '5px', overflow: 'hidden' }}> */}
-        <Image src={podcast['im:image'][1].label} height={60} width={200} alt={podcast['im:name'].label} objectFit="cover" />
-      {/* </div> */}
+      <div style={{ borderRadius: "50%", overflow: 'hidden' }}>
+        {imageSrc && <Image
+          loader={() => podcast['im:image'][1].label}
+          src={imageSrc}
+          height={200}
+          width={240}
+          alt={name} objectFit="cover" />}
 
-      <h3>{podcast['im:name'].label}</h3>
-      <p>Podcast author{podcast['im:artist'].label}</p>
+        {!imageSrc && <Image
+          src={'/images/default.png'}
+          height={200}
+          width={240}
+          alt={name} objectFit="cover" />}
+      </div>
+
+      <h3>{name}</h3>
+      <p>Podcast author{author}</p>
     </li>
   );
 }

@@ -10,7 +10,12 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home(props) {
   console.log('featuredPodcasts from props ================', props.feed);
 
-  const { author, entry, icon, id, link, rights, title, updated } = props.feed;
+  const { feed } = props
+  if (!feed) {
+    <p>Loading...</p>
+  }
+
+  const { author, entry, icon, id, link, rights, title, updated } = feed;
   return (
     <>
       <Head>
@@ -25,10 +30,11 @@ export default function Home(props) {
             Podcaster
           </Link>
         </div>
-
+        {/* 
         <div className={styles.center}>
-          {/* <PodcastList podcastList={entry} /> */}
-        </div> 
+          <searchbar />
+        </div>  
+        */}
 
         <div>
           <PodcastList podcastList={entry} />
