@@ -46,6 +46,10 @@
   height: 180px;
   z-index: -1;
 }
+.container__table {
+  height: 400px; 
+  overflow-y: scroll;  /* or auto */
+}
 
 .center::before,
 .center::after {

@@ -1,19 +1,17 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import DetailPodcastOverview from '../../components/Podcast/Detail/DetailOverview/detailOverview'
-import DetailEpisodes from '../../components/Podcast/Detail/DetailEpisodes/detailEpisodes'
+import styles from '@/styles/EpisodeDetail.module.css'
+import EpisodeItem from "@/components/Episodes/ListItem/episode-item";
+import DetailPodcastOverview from "@/components/Podcast/Detail/DetailOverview/detailOverview";
 import { getPodcast, getPodcasts, getEpisodesByPodcastId } from '@/helpers/api-util'
-import { useState, useEffect } from 'react';
-import classes from '../../styles/PodcastDetail.module.css';
+// import { useState, useEffect } from 'react';
+// import classes from '../../styles/PodcastDetail.module.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function PodcastDetailPage(props) {
-  const { podcast } = props;
-
-  const trackWrapper = podcast.episodes.slice(0, 1)[0];
-  const listOfEpisodes = podcast.episodes.slice(1);
+  const { podcast, episode } = props;
+  console.log(episode);
   if (!podcast) {
     <p>Loading...</p>
   }
@@ -30,7 +28,8 @@ export default function PodcastDetailPage(props) {
         <div className={styles.description}>
           <div className={styles.center}>
             <DetailPodcastOverview podcast={podcast} />
-            <DetailEpisodes episodes={listOfEpisodes} />
+            <EpisodeItem episode={episode} />
+    
           </div>
         </div>
       </main>
@@ -38,19 +37,28 @@ export default function PodcastDetailPage(props) {
   )
 }
 
-export async function getStaticPaths(params) {
-  const podcasts = await getPodcasts();
-  const paths = podcasts.feed.entry.map(podcast => ({ params: { podcastId: podcast.id.attributes['im:id'] } })); // we construct the object of params with all the pIds dynamic 
+// export async function getStaticPaths(params) {
+//   const { podcastId } = params;
+//   const podcast = await getPodcast(podcastId);
 
-  // The returned paths will be pre-rendered as static HTML at build time
-  return {
-    paths,
-    fallback: 'blocking'// Set this to true if you have additional dynamic paths that are not listed here
-  };
-}
+//   const podcastIds = podcast.feed.entry.map(podcast => (podcast.id.attributes['im:id'])); // we construct the object of params with all the pIds dynamic 
+//   const listOfEpisodes = await getEpisodesByPodcastId(podcastId)
+//   const listOfEpisodes2 = listOfEpisodes.results.slice(1);
+//   const episodes = listOfEpisodes2.map(episodes => (episodes.episodeGuid))
+//   // The returned paths will be pre-rendered as static HTML at build time
+//   return {
+//     paths:{
+//       params:{
+//         podcastId:podcastIds,
+//         episodeId:episodes
+//       }
+//     },
+//     fallback: "blocking",// Set this to true if you have additional dynamic paths that are not listed here
+//   };
+// }
 
-export async function getStaticProps(context) {
-  const { podcastId } = context.params;
+export async function getServerSideProps(context) {
+  const { podcastId, episodeId } = context.params;
   const podcastSelected = await getPodcast(podcastId);
 
   if (!podcastSelected || !podcastSelected.results) {
@@ -70,6 +78,10 @@ export async function getStaticProps(context) {
 
   const listOfEpisodes = await getEpisodesByPodcastId(podcastId)
 
+  const trackWrapper = listOfEpisodes.results.slice(0, 1)[0];
+  const listOfEpisodes2 = listOfEpisodes.results.slice(1);
+  const episode = listOfEpisodes2.filter(x => x.episodeGuid === episodeId)
+
   return {
     props: {
       podcast: {
@@ -79,9 +91,9 @@ export async function getStaticProps(context) {
         imageSrc,
         id,
         title,
-        ...podcastSelected.results[0],
-        episodes: listOfEpisodes.results
-      }
+        ...podcastSelected.results[0],   
+      },
+      episode: episode[0]
     },
   };
 }

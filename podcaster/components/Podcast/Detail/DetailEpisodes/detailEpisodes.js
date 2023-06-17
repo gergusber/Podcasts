@@ -5,8 +5,8 @@ function DetailEpisodes(props) {
 
   return (
     <>
-      <span><b>Episodes:{props.episodes.length}</b></span>
-      <div >
+      <div className={classes.container__table}>
+        <span><b>Episodes:{props.episodes.length}</b></span>
         <EpisodesList episodes={props.episodes} />
       </div>
     </>
