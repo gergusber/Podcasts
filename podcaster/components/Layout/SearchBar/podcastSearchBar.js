@@ -4,11 +4,9 @@ import { Input } from '@nextui-org/react';
 
 function PodcastSearchBar(props) {
   const searchValueRef = useRef();
-
   return (
     <div className={classes.controls}>
       <div className={classes.control}>
-
         <Input placeholder="Search podcast"
           bordered
           ref={searchValueRef}

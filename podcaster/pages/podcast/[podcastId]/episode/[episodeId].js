@@ -29,7 +29,6 @@ export default function PodcastDetailPage(props) {
           <div className={styles.center}>
             <DetailPodcastOverview podcast={podcast} />
             <EpisodeItem episode={episode} />
-    
           </div>
         </div>
       </main>
