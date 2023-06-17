@@ -8,8 +8,6 @@ import { getPodcasts } from '@/helpers/api-util'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home(props) {
-  console.log('featuredPodcasts from props ================', props.feed);
-
   const { feed } = props
   if (!feed) {
     <p>Loading...</p>
