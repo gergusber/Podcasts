@@ -9,7 +9,7 @@ const PodcastList = (props) => {
     <ul className={classes.grid}> 
       {Array.isArray(podcastList) ?
         podcastList.map((podcast) => (
-          <PodcastItem key={podcast.id.label} podcast={podcast} />
+          <PodcastItem key={podcast.id.attributes['im:id']} podcast={podcast} />
         )) :
         null}
     </ul>

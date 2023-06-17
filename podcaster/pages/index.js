@@ -1,19 +1,44 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import Link from 'next/link'
 import PodcastList from '@/components/Podcast/List/podcast-list'
 import { getPodcasts } from '@/helpers/api-util'
+import PodcastSearchBar from '../components/Layout/SearchBar/podcastSearchBar'
+import { useState, useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home(props) {
-  const { feed } = props
-  if (!feed) {
+  const [searchValue, setSearchValue] = useState();
+  const [podcasts, setPodcasts] = useState(props.feed);
+  const [icon, setIcon] = useState(props.feed.icon)
+  const { author, entry, id, link, rights, title, updated } = podcasts;
+  const [entries, setEntries] = useState(entry);
+
+  const searchValueHandler = async (value) => {
+    setSearchValue(value)
+  }
+
+  useEffect(() => {
+    if (!searchValue) {
+      setEntries(entry);
+      return;
+    }
+    else {
+      const filteredEntries = entry.filter((podcastEntry) => {
+        const title = podcastEntry.title.label;
+        console.log(podcastEntry);
+        return title.toLowerCase().includes(searchValue.toLowerCase());
+      });
+
+      setEntries(filteredEntries);
+    }
+  }, [searchValue, entry]);
+
+  if (!podcasts) {
     <p>Loading...</p>
   }
 
-  const { author, entry, icon, id, link, rights, title, updated } = feed;
   return (
     <>
       <Head>
@@ -24,18 +49,13 @@ export default function Home(props) {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
-          <Link href="/">
-            Podcaster
-          </Link>
+          <div className={styles.center}>
+            <PodcastSearchBar handleSearchChange={searchValueHandler} searchValue={searchValue} />
+          </div>
         </div>
-        {/* 
-        <div className={styles.center}>
-          <searchbar />
-        </div>  
-        */}
 
         <div>
-          <PodcastList podcastList={entry} />
+          <PodcastList podcastList={entries} />
         </div>
       </main>
     </>
