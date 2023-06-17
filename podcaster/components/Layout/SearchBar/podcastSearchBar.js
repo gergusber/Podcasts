@@ -1,5 +1,6 @@
 import classes from './podcastSearchBar.module.css';
 import { useRef } from 'react';
+import { Input } from '@nextui-org/react';
 
 function PodcastSearchBar(props) {
   const searchValueRef = useRef();
@@ -7,10 +8,12 @@ function PodcastSearchBar(props) {
   return (
     <div className={classes.controls}>
       <div className={classes.control}>
-        <label htmlFor='searchPodcast'>Podcast</label>
-        <input type="text"
+
+        <Input placeholder="Search podcast"
+          bordered
           ref={searchValueRef}
           value={props.searchValue}
+          size="md"
           onChange={(event) => {
             event.preventDefault();
             props.handleSearchChange(searchValueRef.current.value)
