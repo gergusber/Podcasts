@@ -6,12 +6,12 @@ const PodcastList = (props) => {
   // console.log('podcasts from PodcastList', podcastList);
   return (
     // 
-    <ul className={classes.grid}> 
+    <ul className={classes.grid}>
       {Array.isArray(podcastList) ?
         podcastList.map((podcast) => (
           <PodcastItem key={podcast.id.attributes['im:id']} podcast={podcast} />
         )) :
-        null}
+        <p>No Podcast Found</p>}
     </ul>
   );
 }

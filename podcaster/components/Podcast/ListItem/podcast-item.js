@@ -7,9 +7,12 @@ function EventItem(props) {
   const author = podcast['im:artist'].label;
   const imageSrc = podcast['im:image'][1]?.label;
   const id = podcast.id.attributes['im:id'];
+
+
   return (
     <>
-      <Link href={`/podcasts/${id}`}>
+      <Link href={`/podcast/${id}`}
+      >
         <li className={classes.card}>
           <div style={{ borderRadius: "50%", overflow: 'hidden' }}>
             {imageSrc && <Image
@@ -17,15 +20,15 @@ function EventItem(props) {
               src={imageSrc}
               height={200}
               width={240}
-              priority={false} 
+              priority={false}
               alt={name} />}
 
             {!imageSrc && <Image
               src={'/images/default.png'}
               height={200}
               width={240}
-              priority={false} 
-              alt={name}  />}
+              priority={false}
+              alt={name} />}
           </div>
 
           <h3>{name}</h3>
