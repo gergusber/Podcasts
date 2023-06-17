@@ -1,6 +1,5 @@
 const URL = process.env.URL_FETCH;
 const URL_FETCH_PODCAST_DETAIL = process.env.URL_FETCH_PODCAST_DETAIL
-const URL_FETCH_PODCAST_EPISODES = process.env.URL_FETCH_PODCAST_EPISODES
 
 export async function getPodcasts() {
   const response = await fetch(URL);

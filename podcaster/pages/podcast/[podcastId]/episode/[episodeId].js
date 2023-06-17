@@ -4,8 +4,6 @@ import styles from '@/styles/EpisodeDetail.module.css'
 import EpisodeItem from "@/components/Episodes/ListItem/episode-item";
 import DetailPodcastOverview from "@/components/Podcast/Detail/DetailOverview/detailOverview";
 import { getPodcast, getPodcasts, getEpisodesByPodcastId } from '@/helpers/api-util'
-// import { useState, useEffect } from 'react';
-// import classes from '../../styles/PodcastDetail.module.css';
 
 const inter = Inter({ subsets: ['latin'] })
 

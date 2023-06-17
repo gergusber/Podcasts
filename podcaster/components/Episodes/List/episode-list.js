@@ -33,11 +33,13 @@ const EpisodesList = (props) => {
   ];
   const onSelectionChange = (data) => {
     console.log(data);
+
+    // TODO : Add the correct parameters to this route
     router.push({
       pathname: '/podcast/[id]/episode/[episodeId]',
       query: {
-        id: 'ger',
-        episodeId: 'project a'
+        id: '1535809341',
+        episodeId: '0d6724ac-9ba1-46a9-818e-861b0cd11abe'
       }
     })
   }
@@ -67,7 +69,6 @@ const EpisodesList = (props) => {
           </Table.Row>
         )}
       </Table.Body>
-
     </Table>
   );
 }

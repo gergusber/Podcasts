@@ -11,8 +11,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function PodcastDetailPage(props) {
   const { podcast } = props;
-
-  const trackWrapper = podcast.episodes.slice(0, 1)[0];
   const listOfEpisodes = podcast.episodes.slice(1);
   if (!podcast) {
     <p>Loading...</p>
@@ -41,8 +39,6 @@ export default function PodcastDetailPage(props) {
 export async function getStaticPaths(params) {
   const podcasts = await getPodcasts();
   const paths = podcasts.feed.entry.map(podcast => ({ params: { podcastId: podcast.id.attributes['im:id'] } })); // we construct the object of params with all the pIds dynamic 
-
-  // The returned paths will be pre-rendered as static HTML at build time
   return {
     paths,
     fallback: 'blocking'// Set this to true if you have additional dynamic paths that are not listed here
