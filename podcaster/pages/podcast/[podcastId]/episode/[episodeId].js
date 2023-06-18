@@ -5,6 +5,7 @@ import EpisodeItem from "@/components/Episodes/ListItem/episode-item";
 import DetailPodcastOverview from "@/components/Podcast/Detail/DetailOverview/detailOverview";
 import { getPodcast, getPodcasts, getEpisodesByPodcastId } from '@/helpers/api-util'
 import { useRouter } from 'next/router'
+import { URL } from 'url';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,7 +30,7 @@ export default function PodcastDetailPage(props) {
         <div className={styles.description}>
           <div className={styles.center}>
             <DetailPodcastOverview podcast={podcast} />
-            <EpisodeItem episode={episode} podcastId={podcastId}/>
+            <EpisodeItem episode={episode} podcastId={podcastId} />
           </div>
         </div>
       </main>
@@ -37,27 +38,30 @@ export default function PodcastDetailPage(props) {
   )
 }
 
-// export async function getStaticPaths(params) {
-//   const { podcastId } = params;
-//   const podcast = await getPodcast(podcastId);
+export async function getStaticPaths(params) {
+  return { // if we need to load it only when its needed
+    paths: [],
+    fallback: 'blocking'
+  }
+  // const { podcastId } = params;
+  // const podcast = await getPodcast(podcastId);
+  // const podcastIds = podcast.feed.entry.map(podcast => (podcast.id.attributes['im:id'])); // we construct the object of params with all the pIds dynamic 
+  // const listOfEpisodes = await getEpisodesByPodcastId(podcastId)
+  // const listOfEpisodes2 = listOfEpisodes.results.map(episodes => (episodes.trackId))
+  // const episodes = listOfEpisodes2.map(episodes => (episodes.trackId))
+  // // The returned paths will be pre-rendered as static HTML at build time
+  // return {
+  //   paths:{
+  //     params:{
+  //       podcastId:podcastIds,
+  //       episodeId:episodes
+  //     }
+  //   },
+  //   fallback: "blocking",// Set this to true if you have additional dynamic paths that are not listed here
+  // };
+}
 
-//   const podcastIds = podcast.feed.entry.map(podcast => (podcast.id.attributes['im:id'])); // we construct the object of params with all the pIds dynamic 
-//   const listOfEpisodes = await getEpisodesByPodcastId(podcastId)
-//   const listOfEpisodes2 = listOfEpisodes.results.slice(1);
-//   const episodes = listOfEpisodes2.map(episodes => (episodes.episodeGuid))
-//   // The returned paths will be pre-rendered as static HTML at build time
-//   return {
-//     paths:{
-//       params:{
-//         podcastId:podcastIds,
-//         episodeId:episodes
-//       }
-//     },
-//     fallback: "blocking",// Set this to true if you have additional dynamic paths that are not listed here
-//   };
-// }
-
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const { podcastId, episodeId } = context.params;
   const podcastSelected = await getPodcast(podcastId);
 
@@ -79,8 +83,8 @@ export async function getServerSideProps(context) {
   const listOfEpisodes = await getEpisodesByPodcastId(podcastId)
 
   const trackWrapper = listOfEpisodes.results.slice(0, 1)[0];
-  const listOfEpisodes2 = listOfEpisodes.results.slice(1);
-  const episode = listOfEpisodes2.filter(x => x.episodeGuid === episodeId)
+  const episodesWithoutWrapperTrack = listOfEpisodes.results.slice(1);
+  const episode = episodesWithoutWrapperTrack.filter(x => x.trackId === Number(episodeId))
 
   return {
     props: {
@@ -91,7 +95,7 @@ export async function getServerSideProps(context) {
         imageSrc,
         id,
         title,
-        ...podcastSelected.results[0],   
+        ...podcastSelected.results[0],
       },
       episode: episode[0]
     },

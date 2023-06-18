@@ -1,7 +1,15 @@
 import classes from './episode-item.module.css';
 
 function EpisodeItem(props) {
-  const { trackName, description, releaseDate, episodeUrl, episodeContentType, episodeFileExtension, trackId, trackTimeMillis, episodeGuid } = props.episode;
+  const { trackName = null,
+    description = null,
+    releaseDate = null,
+    episodeUrl = null,
+    episodeContentType = null,
+    episodeFileExtension = null,
+    trackId = null,
+    trackTimeMillis = null,
+    episodeGuid = null } = props.episode;
 
   return (
     <>

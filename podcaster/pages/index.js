@@ -53,9 +53,9 @@ export default function Home(props) {
             <PodcastSearchBar handleSearchChange={searchValueHandler} searchValue={searchValue} />
           </div>
         </div>
-
+        {!entries.length && <div> <p>No results for the search</p></div>}
         <div>
-          <PodcastList podcastList={entries} />
+          {entries && <PodcastList podcastList={entries} />}
         </div>
       </main>
     </>
