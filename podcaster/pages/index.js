@@ -2,16 +2,20 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import PodcastList from '@/components/Podcast/List/podcast-list'
-import { getPodcasts } from '@/helpers/api-util'
+import { getPodcastsApi } from './api/podcast'
 import PodcastSearchBar from '../components/Layout/SearchBar/podcastSearchBar'
 import { useState, useEffect } from 'react';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { usePodcasts } from '../hooks/podcast'
+import { Loading } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home(props) {
+export default function Home() {
   const [searchValue, setSearchValue] = useState();
-  const [podcasts, setPodcasts] = useState(props.feed);
-  const [icon, setIcon] = useState(props.feed.icon)
+  const { data, isLoading } = usePodcasts();
+  const [podcasts, setPodcasts] = useState(data.feed);
+  const [icon, setIcon] = useState(data.feed.icon)
   const { author, entry, id, link, rights, title, updated } = podcasts;
   const [entries, setEntries] = useState(entry);
 
@@ -35,9 +39,7 @@ export default function Home(props) {
     }
   }, [searchValue, entry]);
 
-  if (!podcasts) {
-    <p>Loading...</p>
-  }
+  if (isLoading || !podcasts) return <Loading />
 
   return (
     <>
@@ -63,10 +65,12 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-  const featuredPodcasts = await getPodcasts();
+  const queryClient = new QueryClient()
+  await queryClient.fetchQuery(['podcasts'], () => getPodcastsApi())
+
   return {
     props: {
-      feed: featuredPodcasts.feed,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }

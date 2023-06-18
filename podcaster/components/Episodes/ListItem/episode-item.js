@@ -10,7 +10,6 @@ function EpisodeItem(props) {
     trackId = null,
     trackTimeMillis = null,
     episodeGuid = null } = props.episode;
-
   return (
     <>
       <div className={classes.item}>
