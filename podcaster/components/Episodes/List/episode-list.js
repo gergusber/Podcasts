@@ -2,9 +2,10 @@ import classes from './episode-list.module.css';
 import EpisodeItem from '../ListItem/episode-item';
 import { Table } from '@nextui-org/react';
 import { useRouter } from 'next/router';
+
 const EpisodesList = (props) => {
   const router = useRouter()
-  const { episodes } = props;
+  const { episodes, podcastId } = props;
   const episodesTable = episodes.map(episode => {
     return {
       key: episode.episodeGuid,
@@ -31,17 +32,8 @@ const EpisodesList = (props) => {
       label: "Duration",
     },
   ];
-  const onSelectionChange = (data) => {
-    console.log(data);
-
-    // TODO : Add the correct parameters to this route
-    router.push({
-      pathname: '/podcast/[id]/episode/[episodeId]',
-      query: {
-        id: '1535809341',
-        episodeId: '0d6724ac-9ba1-46a9-818e-861b0cd11abe'
-      }
-    })
+  const onSelectionChange = (episodeId) => {
+    router.push(`/podcast/${podcastId}/episode/${episodeId}`)
   }
   return (
     <Table
@@ -50,7 +42,7 @@ const EpisodesList = (props) => {
       bordered
       sticked
       selectionMode="single"
-      onSelectionChange={(data) => onSelectionChange(data)}
+      onRowAction={onSelectionChange}
       css={{
         minWidth: "60%",
         width: "80%",

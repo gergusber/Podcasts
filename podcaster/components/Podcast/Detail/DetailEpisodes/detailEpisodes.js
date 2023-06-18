@@ -7,7 +7,7 @@ function DetailEpisodes(props) {
     <>
       <div className={classes.container__table}>
         <span><b>Episodes:{props.episodes.length}</b></span>
-        <EpisodesList episodes={props.episodes} />
+        <EpisodesList episodes={props.episodes} podcastId={props.podcastId} />
       </div>
     </>
   );

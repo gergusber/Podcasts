@@ -4,12 +4,15 @@ import styles from '@/styles/EpisodeDetail.module.css'
 import EpisodeItem from "@/components/Episodes/ListItem/episode-item";
 import DetailPodcastOverview from "@/components/Podcast/Detail/DetailOverview/detailOverview";
 import { getPodcast, getPodcasts, getEpisodesByPodcastId } from '@/helpers/api-util'
+import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function PodcastDetailPage(props) {
   const { podcast, episode } = props;
-  console.log(episode);
+  const router = useRouter();
+  const { podcastId } = router.query;
+
   if (!podcast) {
     <p>Loading...</p>
   }
@@ -26,7 +29,7 @@ export default function PodcastDetailPage(props) {
         <div className={styles.description}>
           <div className={styles.center}>
             <DetailPodcastOverview podcast={podcast} />
-            <EpisodeItem episode={episode} />
+            <EpisodeItem episode={episode} podcastId={podcastId}/>
           </div>
         </div>
       </main>

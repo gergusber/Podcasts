@@ -4,8 +4,6 @@ import styles from '@/styles/Home.module.css'
 import DetailPodcastOverview from '../../components/Podcast/Detail/DetailOverview/detailOverview'
 import DetailEpisodes from '../../components/Podcast/Detail/DetailEpisodes/detailEpisodes'
 import { getPodcast, getPodcasts, getEpisodesByPodcastId } from '@/helpers/api-util'
-import { useState, useEffect } from 'react';
-import classes from '../../styles/PodcastDetail.module.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,7 +26,7 @@ export default function PodcastDetailPage(props) {
         <div className={styles.description}>
           <div className={styles.center}>
             <DetailPodcastOverview podcast={podcast} />
-            <DetailEpisodes episodes={listOfEpisodes} />
+            <DetailEpisodes episodes={listOfEpisodes} podcastId ={podcast.id}/>
           </div>
         </div>
       </main>
