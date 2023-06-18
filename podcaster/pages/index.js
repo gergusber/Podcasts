@@ -31,7 +31,6 @@ export default function Home() {
     else {
       const filteredEntries = entry.filter((podcastEntry) => {
         const title = podcastEntry.title.label;
-        console.log(podcastEntry);
         return title.toLowerCase().includes(searchValue.toLowerCase());
       });
 

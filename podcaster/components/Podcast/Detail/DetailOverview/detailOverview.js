@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 function DetailPodcastOverview(props) {
   const { artworkUrl600, collectionName, artistName, genres } = props.podcast;
-  console.log('podcast data', props.podcast);
   return (
     <>
       <div className={classes.card}>
