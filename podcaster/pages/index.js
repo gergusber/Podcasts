@@ -39,11 +39,7 @@ export default function Home(props) {
     }
   }, [searchValue, entry]);
 
-  if (!podcasts) {
-    <p>Loading...</p>
-  }
-
-  if (isLoading) return <Loading />
+  if (isLoading || !podcasts) return <Loading />
 
   return (
     <>

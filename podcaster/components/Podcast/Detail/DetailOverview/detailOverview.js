@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 function DetailPodcastOverview(props) {
-  const { artworkUrl600, name, author, summary } = props.podcast;
-
+  const { artworkUrl600, collectionName, artistName, genres } = props.podcast;
+  console.log('podcast data', props.podcast);
   return (
     <>
       <div className={classes.card}>
@@ -14,16 +14,12 @@ function DetailPodcastOverview(props) {
             height={200}
             width={240}
             priority={false}
-            alt={name} ></Image>
-
-          <span><b>{name}</b></span>
+            alt={collectionName} ></Image>
+          <span><b>{collectionName}</b></span>
           <br />
-          <span> by {author}</span>
+          <span> by {artistName}</span>
           <br />
           <br />
-          Description
-          <br />
-          <span> by {summary}</span>
         </p>
       </div>
     </>

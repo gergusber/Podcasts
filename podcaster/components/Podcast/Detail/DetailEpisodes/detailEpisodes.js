@@ -2,7 +2,7 @@ import classes from './detailEpisodes.module.css';
 import EpisodesList from '../../../Episodes/List/episode-list'
 
 function DetailEpisodes(props) {
-
+  console.log(props.episodes);
   return (
     <>
       <div className={classes.container__table}>
