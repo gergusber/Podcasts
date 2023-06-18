@@ -3,7 +3,6 @@ import PodcastItem from '../ListItem/podcast-item';
 
 const PodcastList = (props) => {
   const { podcastList } = props;
-  // console.log('podcasts from PodcastList', podcastList);
   return (
     // 
     <ul className={classes.grid}>

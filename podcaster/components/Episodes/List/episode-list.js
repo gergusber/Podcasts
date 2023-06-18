@@ -39,33 +39,7 @@ const EpisodesList = (props) => {
     ],
     []);
   const onSelectionChange = (episodeId) => {
-    console.log('episodeId', episodeId);
-    // console.log(episodes);
-    // const data = episodes.filter(episode => episode.trackId === Number(episodeId))[0]
-    // console.log('data from episode Object', data)
     router.push(`/podcast/${podcastId}/episode/${episodeId}`)
-    // const object = {
-    //   trackId: data.trackId,
-    //   episodeGuid: data.episodeGuid,
-    //   summary: data.description,
-    //   name: data.trackName,
-    //   imageSrc: data.artworkUrl160,
-    //   title: data.collectionName,
-    //   duration: data.trackTimeMillis,
-    //   releaseDate: data.releaseDate,
-    //   episodeUrl: data.episodeUrl,
-    //   episodeFileExtension: data.episodeFileExtension,
-    //   episodeContentType: data.episodeContentType,
-    //   contentAdvisoryRating: data.contentAdvisoryRating
-    // }
-    // router.push({
-    //   pathname: '/podcast/[podcastId]/episode/[episodeId]',
-    //   query: {
-    //     podcastId: podcastId,
-    //     episodeId: episodeId,
-       
-    //   },
-    // })
   }
   return (
     <Table

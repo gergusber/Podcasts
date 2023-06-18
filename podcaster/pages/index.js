@@ -6,12 +6,12 @@ import { getPodcastsApi } from './api/podcast'
 import PodcastSearchBar from '../components/Layout/SearchBar/podcastSearchBar'
 import { useState, useEffect } from 'react';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { usePodcasts } from './hooks/podcast'
+import { usePodcasts } from '../hooks/podcast'
 import { Loading } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home(props) {
+export default function Home() {
   const [searchValue, setSearchValue] = useState();
   const { data, isLoading } = usePodcasts();
   const [podcasts, setPodcasts] = useState(data.feed);
@@ -65,15 +65,12 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-  // const featuredPodcasts = await getPodcasts();
   const queryClient = new QueryClient()
   await queryClient.fetchQuery(['podcasts'], () => getPodcastsApi())
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-
-      // feed: featuredPodcasts.feed,
     },
   };
 }

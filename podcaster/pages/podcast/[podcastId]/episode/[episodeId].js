@@ -6,19 +6,18 @@ import DetailPodcastOverview from "@/components/Podcast/Detail/DetailOverview/de
 import { getPodcast, getPodcasts, getEpisodesByPodcastId } from '@/helpers/api-util'
 import { useRouter } from 'next/router'
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { usePodcast, usePodcasts } from '../../../hooks/podcast'
-import { useEpisode } from '../../../hooks/episode'
+import { usePodcast } from '../../../../hooks/podcast'
+import { useEpisode } from '../../../../hooks/episode'
 import { Loading } from "@nextui-org/react";
-import { getPodcastApi, getPodcastsApi } from '../../../api/podcast'
+import { getPodcastApi } from '../../../api/podcast'
 import { getEpisodesByPodcastApi } from '../../../api/episodes'
 import { useState, useEffect } from 'react';
 
-
 const inter = Inter({ subsets: ['latin'] })
 
-export default function PodcastDetailPage(props) {
+export default function PodcastDetailPage() {
   const router = useRouter();
-  const { podcastId,episodeId } = router.query;
+  const { podcastId, episodeId } = router.query;
 
   const { data: dataPodcastSelected, isLoadingPodcastSelected } = usePodcast(podcastId);
   const { data: dataEpisodes, isLoadingEpisodes } = useEpisode(podcastId);
@@ -34,7 +33,6 @@ export default function PodcastDetailPage(props) {
 
   if (isLoadingPodcastSelected || isLoadingEpisodes || !episodeSelected) { return <Loading /> }
 
-
   return (
     <>
       <Head>
@@ -48,7 +46,6 @@ export default function PodcastDetailPage(props) {
           <div className={styles.center}>
             {podcast && <DetailPodcastOverview podcast={podcast.results[0]} />}
             {episodes && episodeSelected && <EpisodeItem episode={episodeSelected[0]} podcastId={podcastId} />}
-
           </div>
         </div>
       </main>
@@ -57,69 +54,28 @@ export default function PodcastDetailPage(props) {
 }
 
 export async function getStaticPaths(params) {
-  return { // if we need to load it only when its needed
+  return {
     paths: [],
     fallback: 'blocking'
   }
-  // const { podcastId } = params;
-  // const podcast = await getPodcast(podcastId);
-  // const podcastIds = podcast.feed.entry.map(podcast => (podcast.id.attributes['im:id'])); // we construct the object of params with all the pIds dynamic 
-  // const listOfEpisodes = await getEpisodesByPodcastId(podcastId)
-  // const listOfEpisodes2 = listOfEpisodes.results.map(episodes => (episodes.trackId))
-  // const episodes = listOfEpisodes2.map(episodes => (episodes.trackId))
-  // // The returned paths will be pre-rendered as static HTML at build time
-  // return {
-  //   paths:{
-  //     params:{
-  //       podcastId:podcastIds,
-  //       episodeId:episodes
-  //     }
-  //   },
-  //   fallback: "blocking",// Set this to true if you have additional dynamic paths that are not listed here
-  // };
 }
 
 export async function getStaticProps(context) {
-  const { podcastId, episodeId } = context.params;
+  const { podcastId } = context.params;
   const queryClient = new QueryClient()
   await queryClient.fetchQuery(['podcast', podcastId], () => getPodcastApi(podcastId))
   await queryClient.fetchQuery(['episodes', podcastId], () => getEpisodesByPodcastApi(podcastId))
 
-
   const podcastSelected = await getPodcast(podcastId);
-
   if (!podcastSelected || !podcastSelected.results) {
     return {
       notFound: true,
     }
   }
-  // const podcastsFromDb = await getPodcasts();
-  // const selectedPodcastData = podcastsFromDb.feed.entry.filter((podcast) => podcast.id.attributes['im:id'] === podcastId)
-  // const entry = selectedPodcastData[0]
-  // const name = entry['im:name'].label;
-  // const author = entry['im:artist'].label;
-  // const imageSrc = entry['im:image'][1]?.label;
-  // const id = entry.id.attributes['im:id'];
-  // const summary = entry.summary.label;
-  // const title = entry.title.label
-  // const listOfEpisodes = await getEpisodesByPodcastId(podcastId)
-  // const trackWrapper = listOfEpisodes.results.slice(0, 1)[0];
-  // const episodesWithoutWrapperTrack = listOfEpisodes.results.slice(1);
-  // const episode = episodesWithoutWrapperTrack.filter(x => x.trackId === Number(episodeId))
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      // podcast: {
-      //   summary,
-      //   name,
-      //   author,
-      //   imageSrc,
-      //   id,
-      //   title,
-      //   ...podcastSelected.results[0],
-      // },
-      // episode: episode[0]
     },
   };
 }

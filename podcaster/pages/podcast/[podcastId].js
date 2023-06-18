@@ -4,32 +4,25 @@ import styles from '@/styles/Home.module.css'
 import DetailPodcastOverview from '../../components/Podcast/Detail/DetailOverview/detailOverview'
 import DetailEpisodes from '../../components/Podcast/Detail/DetailEpisodes/detailEpisodes'
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { usePodcast, usePodcasts } from '../hooks/podcast'
-import { useEpisode } from '../hooks/episode'
+import { usePodcast } from '../../hooks/podcast'
+import { useEpisode } from '../../hooks/episode'
 import { Loading } from "@nextui-org/react";
-import { getPodcastApi, getPodcastsApi } from '../api/podcast'
+import { getPodcastApi } from '../api/podcast'
 import { getEpisodesByPodcastApi } from '../api/episodes'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function PodcastDetailPage(props) {
+export default function PodcastDetailPage() {
   const router = useRouter();
   const { podcastId } = router.query;
   const { data: dataPodcastSelected, isLoadingPodcastSelected } = usePodcast(podcastId);
-  // const { data: dataPodcasts, isLoadingPodcasts } = usePodcasts();
   const { data: dataEpisodes, isLoadingEpisodes } = useEpisode(podcastId);
   const [podcast, setPodcast] = useState(dataPodcastSelected);
-  // const [podcasts, setPodcasts] = useState(dataPodcasts);
   const [episodes, setEpisodes] = useState(dataEpisodes);
-  // const [podcastParsed, setPodcastParsed] = useState();
-  // console.log('podcasts', podcasts);
-  // console.log('episodes',episodes);
-
-
+ 
   if (isLoadingPodcastSelected || isLoadingEpisodes) { return <Loading /> }
-
   return (
     <>
       <Head>
@@ -52,11 +45,9 @@ export default function PodcastDetailPage(props) {
 
 export async function getServerSideProps(context) {
   const { podcastId } = context.params;
-
   const queryClient = new QueryClient()
   await queryClient.fetchQuery(['podcast', podcastId], () => getPodcastApi(podcastId))
   await queryClient.fetchQuery(['episodes', podcastId], () => getEpisodesByPodcastApi(podcastId))
-
 
   return {
     props: {

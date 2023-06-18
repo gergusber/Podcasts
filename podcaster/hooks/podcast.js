@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import * as api from '../api/podcast';
+import * as api from '../pages/api/podcast';
 
 export const usePodcasts = () => {
     return useQuery(['podcasts'], () => api.getPodcastsApi());
