@@ -16,7 +16,6 @@ class MyDocument extends Document {
         <Head>
           {CssBaseline.flush()}
           <meta name='description' content='App for showing itunes podcasts' />
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <body>

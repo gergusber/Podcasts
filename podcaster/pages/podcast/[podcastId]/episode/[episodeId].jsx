@@ -43,9 +43,10 @@ export default function PodcastDetailPage() {
         <title>Episode Detail</title>
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
+        <div className={styles.item}>
           <div className={styles.center}>
             {podcast && <DetailPodcastOverview podcast={podcast.results[0]} />}
+
             {episodes && episodeSelected && (
               <EpisodeItem episode={episodeSelected[0]} podcastId={podcastId} />
             )}
@@ -56,14 +57,8 @@ export default function PodcastDetailPage() {
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  };
-}
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { podcastId } = context.params;
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(['podcast', podcastId], () =>

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 function DetailPodcastOverview(props) {
-  const { artworkUrl600, collectionName, artistName, genres } = props.podcast;
+  const { artworkUrl600, collectionName, artistName } = props.podcast;
   return (
     <>
       <div className={classes.card}>

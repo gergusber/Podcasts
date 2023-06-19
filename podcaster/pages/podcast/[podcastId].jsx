@@ -33,7 +33,7 @@ export default function PodcastDetailPage() {
         <title>Podcast Detail</title>
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
+        <div className={styles.item}>
           <div className={styles.center}>
             {podcast && <DetailPodcastOverview podcast={podcast.results[0]} />}
             {episodes && (

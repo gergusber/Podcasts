@@ -9,10 +9,12 @@ import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { usePodcasts } from '@/hooks/podcast';
 import { Loading } from '@nextui-org/react';
 
+
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState();
+
   const { data, isLoading } = usePodcasts();
   const [podcasts, setPodcasts] = useState(data.feed);
   const { entry } = podcasts;
@@ -42,7 +44,7 @@ export default function Home() {
       <Head>
         <title>Podcaster - Home</title>
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <div className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           <div className={styles.center}>
             <PodcastSearchBar
@@ -57,12 +59,12 @@ export default function Home() {
           </div>
         )}
         <div>{entries && <PodcastList podcastList={entries} />}</div>
-      </main>
+      </div>
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(['podcasts'], () => getPodcastsApi());
 
