@@ -61,7 +61,7 @@
 .container__table {
   /* height: 600px; */
   /* width: 600px; */
-  overflow-y: scroll;  /* or auto */
+  overflow-y: auto;  /* or auto */
 }
 
 .center::before,
