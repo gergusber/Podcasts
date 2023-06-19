@@ -1,3 +1,4 @@
+import { transformDate } from '@/helpers/utils';
 import classes from './episode-item.module.css';
 
 function EpisodeItem(props) {
@@ -8,17 +9,22 @@ function EpisodeItem(props) {
     episodeUrl = null,
     episodeContentType = null,
     episodeFileExtension = null,
-    trackId = null,
-    trackTimeMillis = null,
-    episodeGuid = null,
   } = props.episode;
+
+  const releaseDateParsed = transformDate(releaseDate);
+
   return (
     <>
       <div className={classes.item}>
         <p>
           <b>{trackName}</b>
         </p>
-        <p>{description}</p>
+        <p>
+          {description}
+          <br />
+          <br />
+          <span>Released: {releaseDateParsed}</span>
+        </p>
 
         <div className={classes.item}>
           <audio controls className={classes.audio}>

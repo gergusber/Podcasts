@@ -5,9 +5,18 @@
   align-items: baseline;
   padding: 1rem 10%;
   height: 5rem;
+  position:sticky
   /* background-color: #161515; */
 }
-
+.isSticky {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 2px 24px 0 rgb(0 0 0 / 15%);
+  animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 .logo {
   font-size: 1.5rem;
   color: white;

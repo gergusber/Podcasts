@@ -1,21 +1,21 @@
 import { Table } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
+import { millisToMinutesAndSeconds, transformDate } from '@/helpers/utils';
 
 const EpisodesList = (props) => {
   const router = useRouter();
   const { episodes, podcastId } = props;
   const episodesLoaded = useMemo(() => {
     return episodes.map((episode) => {
+      if (episode.wrapperType !== 'podcastEpisode') {
+        return null;
+      }
       return {
         key: episode.trackId,
         title: episode.trackName,
-        date: new Date(episode.releaseDate).toLocaleDateString('en-US', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        }),
-        duration: episode.trackTimeMillis,
+        date: transformDate(episode.releaseDate),
+        duration: millisToMinutesAndSeconds(episode.trackTimeMillis),
       };
     });
   }, [episodes]);
@@ -42,7 +42,7 @@ const EpisodesList = (props) => {
   };
   return (
     <Table
-      aria-label='Example table with dynamic content'
+      aria-label='Episodes list'
       color='primary'
       bordered
       sticked
@@ -50,7 +50,8 @@ const EpisodesList = (props) => {
       onRowAction={onSelectionChange}
       css={{
         minWidth: '60%',
-        width: '80%',
+        maxWidth: '60%',
+        width: '60%',
         height: 'auto',
       }}
     >
