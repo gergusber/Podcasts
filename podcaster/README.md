@@ -12,6 +12,12 @@ yarn dev
 added linter  yarn run lint
 ```
 
+
+for  building the prj
+```bash
+yarn run build
+```
+
 if you need to review the cache it has a build in ReactQueryDevtools where you can see the different states on the app. ( on the bottom left )
 
 
