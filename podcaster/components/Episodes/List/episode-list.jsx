@@ -1,13 +1,12 @@
-import classes from './episode-list.module.css';
 import { Table } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
 const EpisodesList = (props) => {
-  const router = useRouter()
+  const router = useRouter();
   const { episodes, podcastId } = props;
   const episodesLoaded = useMemo(() => {
-    return episodes.map(episode => {
+    return episodes.map((episode) => {
       return {
         key: episode.trackId,
         title: episode.trackName,
@@ -16,43 +15,43 @@ const EpisodesList = (props) => {
           month: 'long',
           year: 'numeric',
         }),
-        duration: episode.trackTimeMillis
-      }
-    })
+        duration: episode.trackTimeMillis,
+      };
+    });
   }, [episodes]);
-
 
   const columns = useMemo(
     () => [
       {
-        key: "title",
-        label: "Title",
+        key: 'title',
+        label: 'Title',
       },
       {
-        key: "date",
-        label: "Date",
+        key: 'date',
+        label: 'Date',
       },
       {
-        key: "duration",
-        label: "Duration",
+        key: 'duration',
+        label: 'Duration',
       },
     ],
-    []);
+    []
+  );
   const onSelectionChange = (episodeId) => {
-    router.push(`/podcast/${podcastId}/episode/${episodeId}`)
-  }
+    router.push(`/podcast/${podcastId}/episode/${episodeId}`);
+  };
   return (
     <Table
-      aria-label="Example table with dynamic content"
-      color="primary"
+      aria-label='Example table with dynamic content'
+      color='primary'
       bordered
       sticked
-      selectionMode="single"
+      selectionMode='single'
       onRowAction={onSelectionChange}
       css={{
-        minWidth: "60%",
-        width: "80%",
-        height: "auto"
+        minWidth: '60%',
+        width: '80%',
+        height: 'auto',
       }}
     >
       <Table.Header columns={columns}>
@@ -69,6 +68,6 @@ const EpisodesList = (props) => {
       </Table.Body>
     </Table>
   );
-}
+};
 
 export default EpisodesList;

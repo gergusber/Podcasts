@@ -14,7 +14,7 @@ function PodcastSearchBar(props) {
           size="md"
           onChange={(event) => {
             event.preventDefault();
-            props.handleSearchChange(searchValueRef.current.value)
+            props.handleSearchChange(searchValueRef.current.value);
           }} />
       </div>
     </div>

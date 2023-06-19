@@ -13,6 +13,6 @@ const PodcastList = (props) => {
         <p>No Podcast Found</p>}
     </ul>
   );
-}
+};
 
 export default PodcastList;

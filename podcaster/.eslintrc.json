@@ -1,3 +1,66 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "module"
+},
+"rules": {
+    "no-var": "error",
+    "no-unused-vars":"warn",
+    "indent": [
+        "error",
+        2
+    ],
+    "semi": [
+        "error",
+        "always"
+    ],
+    "quotes": [
+        "error",
+        "single"
+    ],
+    "object-curly-spacing": [
+        "error",
+        "always"
+    ],
+    // "array-bracket-spacing": [
+    //     2,
+    //     "always"
+    // ],
+    "computed-property-spacing": [
+        2,
+        "never"
+    ],
+    "comma-spacing": [
+        "error",
+        {
+            "before": false,
+            "after": true
+        }
+    ],
+    "no-multiple-empty-lines": [
+        "error",
+        {
+            "max": 2,
+            "maxEOF": 0
+        }
+    ],
+    "prefer-const": [
+        "warn",
+        {
+            "destructuring": "any",
+            "ignoreReadBeforeAssign": false
+        }
+    ],
+    "prefer-destructuring": [
+        "warn",
+        {
+            "array": true,
+            "object": true
+        },
+        {
+            "enforceForRenamedProperties": false
+        }
+    ]
+}
 }
