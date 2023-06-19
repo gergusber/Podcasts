@@ -7,13 +7,18 @@ class MyDocument extends Document {
     const initialProps = await Document.getInitialProps(ctx);
     return {
       ...initialProps,
-      styles: React.Children.toArray([initialProps.styles])
+      styles: React.Children.toArray([initialProps.styles]),
     };
   }
   render() {
     return (
-      <Html lang="en">
-        <Head>{CssBaseline.flush()}</Head>
+      <Html lang='en'>
+        <Head>
+          {CssBaseline.flush()}
+          <meta name='description' content='App for showing itunes podcasts' />
+          <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <link rel='icon' href='http://itunes.apple.com/favicon.ico' />
+        </Head>
         <body>
           <Main />
           <NextScript />

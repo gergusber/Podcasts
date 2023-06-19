@@ -3,10 +3,10 @@ import classes from './main-header.module.css';
 
 function MainHeader() {
   return (
-    <header className={classes.center}>
-      <div className={classes.description}>
+    <header className={classes.header}>
+      <div className={classes.navigation}>
         <Link href="/">
-          Podcaster
+          <h3> Podcaster </h3>
         </Link>
       </div>
     </header>

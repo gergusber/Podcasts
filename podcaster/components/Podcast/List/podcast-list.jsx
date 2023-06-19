@@ -2,9 +2,10 @@ import classes from './podcast-list.module.css';
 import PodcastItem from '../ListItem/podcast-item';
 
 const PodcastList = (props) => {
+  
   const { podcastList } = props;
-  return (
-    // 
+ 
+  return ( 
     <ul className={classes.grid}>
       {Array.isArray(podcastList) ?
         podcastList.map((podcast) => (
