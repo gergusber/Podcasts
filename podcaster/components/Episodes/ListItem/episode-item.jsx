@@ -26,15 +26,13 @@ function EpisodeItem(props) {
           <span>Released: {releaseDateParsed}</span>
         </p>
 
-        <div className={classes.item}>
-          <audio controls className={classes.audio}>
-            <source
-              src={episodeUrl}
-              type={`${episodeContentType}/${episodeFileExtension}`}
-            />
-            Your browser does not support the audio element.
-          </audio>
-        </div>
+        <audio controls className={classes.audio}>
+          <source
+            src={episodeUrl}
+            type={`${episodeContentType}/${episodeFileExtension}`}
+          />
+          Your browser does not support the audio element.
+        </audio>
       </div>
     </>
   );
