@@ -9,10 +9,11 @@ yarn install
 
 yarn dev
 
-
-
- added linter  yarn run lint
+added linter  yarn run lint
 ```
+
+if you need to review the cache it has a build in ReactQueryDevtools where you can see the different states on the app. ( on the bottom left )
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
