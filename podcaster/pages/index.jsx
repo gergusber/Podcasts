@@ -16,7 +16,7 @@ export default function Home() {
   const { data, isLoading } = usePodcasts();
   const [podcasts, setPodcasts] = useState(data.feed);
   const [icon, setIcon] = useState(data.feed.icon)
-  const { author, entry, id, link, rights, title, updated } = podcasts;
+  const { entry } = podcasts;
   const [entries, setEntries] = useState(entry);
 
   const searchValueHandler = async (value) => {

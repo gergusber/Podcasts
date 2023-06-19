@@ -23,6 +23,7 @@ export default function PodcastDetailPage() {
   const [episodes, setEpisodes] = useState(dataEpisodes);
  
   if (isLoadingPodcastSelected || isLoadingEpisodes) { return <Loading /> }
+  
   return (
     <>
       <Head>
