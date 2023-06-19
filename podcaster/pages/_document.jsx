@@ -17,7 +17,7 @@ class MyDocument extends Document {
           {CssBaseline.flush()}
           <meta name='description' content='App for showing itunes podcasts' />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <link rel='icon' href='http://itunes.apple.com/favicon.ico' />
+          <link rel='icon' href='/favicon.ico' />
         </Head>
         <body>
           <Main />
